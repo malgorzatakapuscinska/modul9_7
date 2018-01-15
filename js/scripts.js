@@ -87,7 +87,15 @@ computerPointsElem = document.getElementById('js-computerPoints'),
 gameState;
 
 function newGame() {
-	  reset();
+	//reset 
+	  player.score = 0;
+	  computer.score = 0;
+	  playerResultElem.innerHTML = "Player selection";
+      playerPickElem.innerHTML = "Player selection";
+      computerPickElem.innerHTML = "Computer Selection";
+      computerResultElem.innerHTML = "Computer score";
+      playerResultElem.innerHTML = "Player score";
+      
 	  player.name = prompt('Please enter your name', 'imię gracza');
 	  if (player.name!= '') {
 		setGamePoints();
@@ -185,29 +193,22 @@ function setGameEnd() {
 		winner = player.name;
 		winnerInfo.innerHTML = "The Winner is: " + winner;
 		setGameElements();
-		reset();
+		//reset();
 	} else if(computer.score == winningScore) {
 		gameState = 'ended';
 		winner = 'computer';
 		console.log(gameState);
 		 winnerInfo.innerHTML = "The Winner is: " + winner ;
 		setGameElements();
-		reset();
+		//reset();
 	}
 }
 
-function reset(){
-	player = {
-			name: '',
-			score: 0
-		},
-		computer = {
-			score: 0
-		};
+/*function reset(){
     playerResultElem.innerHTML = "Player selection";
     playerPickElem.innerHTML = "Player selection";
     computerPickElem.innerHTML = "Computer Selection";
     computerResultElem.innerHTML = "Computer score";
     playerResultElem.innerHTML = "Player score";
-}
+}*/
 
