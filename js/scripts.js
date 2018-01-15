@@ -63,8 +63,10 @@ function setGameElements(gamestate) {
 	    case 'ended':
 	        newGameBtn.innerText = 'Jeszcze raz';
 	        winnerInfo.style.display = 'block';
-	      winnerInfo.innerHTML = "The Winner is:" + checkRoundWinner();
-	      break;
+	        winnerInfo.innerHTML = "The Winner is:" + checkRoundWinner();
+	        pickElem.style.display = 'none';
+	        newGameElem.style.display = 'block';
+	        break;
 	    case 'notStarted':
 	    default:
 	        newGameElem.style.display = 'block';
@@ -94,7 +96,7 @@ function newGame() {
 	    setGameElements();
 	    playerNameElem.innerHTML = player.name;
 	  }
-
+	   setGamePoints()
 	}
 
 //=======================================================================================================================================
@@ -150,7 +152,6 @@ function checkRoundWinner(playerPick, computerPick) {
 	        (computerPick == 'paper' &&  playerPick == 'rock')) {
 
 	        winnerIs = 'computer';
-	        return winnerIs;
 	    }
 
 	    if (winnerIs == 'player') {
@@ -161,7 +162,6 @@ function checkRoundWinner(playerPick, computerPick) {
 	        computerResultElem.innerHTML = "Win!";
 	        computer.score++;
 	        console.log('computer score is ' + computer.score);
-	        return winnerIs;
 	    } 
 	   
 	}
@@ -187,7 +187,6 @@ function setGameEnd() {
 	if (player.score >= 10 || computer.score >= 10){
 		gameState = 'ended';
 		console.log(gameState);
-		return gameState = 'ended';
 	}
 }
 
@@ -201,4 +200,5 @@ setGameElements();
 
 //2.	KLIKNIĘCIE GRACZA NA JEDNYM Z PRZYCISKÓW WYBORU - uruchamia funkcję playerPick
 
+setGameEnd();
 
