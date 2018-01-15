@@ -61,9 +61,8 @@ function setGameElements(gamestate) {
 	        winnerInfo.style.display = 'none';
 	      break;
 	    case 'ended':
-	        newGameBtn.innerText = 'Jeszcze raz';
+	        newGameBtn.innerText = 'Play again';
 	        winnerInfo.style.display = 'block';
-	        winnerInfo.innerHTML = "The Winner is:" + checkRoundWinner();
 	        pickElem.style.display = 'none';
 	        newGameElem.style.display = 'block';
 	        break;
@@ -76,7 +75,7 @@ function setGameElements(gamestate) {
 	  }
 	}
 
-
+setGameElements();	
 //=====================================================================================================================================
 
 	// 2.  newGAME - uruchomienie rozgrywki po kliknięciu przycisku newGame
@@ -90,13 +89,14 @@ gameState;
 
 function newGame() {
 	  player.name = prompt('Please enter your name', 'imię gracza');
-	  if (player.name) {
+	  if (player.name!= '') {
 	    player.score = computer.score = 0;
+	    setGamePoints();
 	    gameState = 'started';
 	    setGameElements();
+	    
 	    playerNameElem.innerHTML = player.name;
 	  }
-	   setGamePoints()
 	}
 
 //=======================================================================================================================================
@@ -128,9 +128,7 @@ function playerPick(playerPick) {
     playerPickElem.innerHTML = playerPick;
     computerPickElem.innerHTML = computerPick;
     checkRoundWinner(playerPick, computerPick);
-    setGamePoints();
     setGameEnd();
-    setGameElements();
 }
 
 //========================================================================================================================================
@@ -151,18 +149,14 @@ function checkRoundWinner(playerPick, computerPick) {
 	        (computerPick == 'scissors' &&  playerPick == 'paper') ||
 	        (computerPick == 'paper' &&  playerPick == 'rock')) {
 
-	        winnerIs = 'computer';
-	    }
-
-	    if (winnerIs == 'player') {
+	    	 computerResultElem.innerHTML = "Win!";
+	         computer.score++;
+	         setGamePoints();
+	    } else {
 	        playerResultElem.innerHTML = "Win!";
 	        player.score++;
-	        console.log('player score is ' + player.score);
-	    } else if (winnerIs == 'computer') {
-	        computerResultElem.innerHTML = "Win!";
-	        computer.score++;
-	        console.log('computer score is ' + computer.score);
-	    } 
+	        setGamePoints();
+	    }
 	   
 	}
 
@@ -184,21 +178,24 @@ function setGamePoints() {
 //==========================================================================================================================================
 
 function setGameEnd() {
-	if (player.score >= 10 || computer.score >= 10){
+	
+	var winningScore = 10;
+	var winner;
+	if (player.score == winningScore){
 		gameState = 'ended';
 		console.log(gameState);
+		winner = player.name;
+		winnerInfo.innerHTML = "The Winner is: " + winner;
+		setGameElements();
+	} else if(computer.score == winningScore) {
+		gameState = 'ended';
+		winner = 'computer';
+		console.log(gameState);
+		 winnerInfo.innerHTML = "The Winner is: " + winner ;
+		setGameElements();
 	}
 }
 
-//	ROZGRYWKA ******************************************************************************************************************************
 
-//1. 	WSTĘPNE USTAWIENIE PARAMETRÓW GRY - wywoałanie funkcji :
 
-setGameElements();
-
-//1.	KLIKNIĘCIE GRACZA NA PRZYCISKU 	NEWgAME - uruchamia funkcję newGame
-
-//2.	KLIKNIĘCIE GRACZA NA JEDNYM Z PRZYCISKÓW WYBORU - uruchamia funkcję playerPick
-
-setGameEnd();
 
